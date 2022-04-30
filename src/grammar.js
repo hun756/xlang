@@ -19,10 +19,10 @@ var grammar = {
         () => []
                 },
     {"name": "statements", "symbols": ["_", "statement", "_"], "postprocess": 
-        (data) => [data[0]]
+        (data) => [data[1]]
                 },
     {"name": "statements", "symbols": ["_", "statement", "_", (myLexer.has("nl") ? {type: "nl"} : nl), "statements"], "postprocess": 
-        (data) => [data[0], ...data[2]]
+        (data) => [data[1], ...data[4]]
                 },
     {"name": "statement", "symbols": ["assignment"], "postprocess": id},
     {"name": "statement", "symbols": ["function_call"], "postprocess": id},

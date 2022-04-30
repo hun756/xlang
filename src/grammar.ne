@@ -22,11 +22,11 @@ statements
         %}
     |   _ statement _
         {%
-            (data) => [data[0]]
+            (data) => [data[1]]
         %}
     |   _ statement _ %nl statements
         {%
-            (data) => [data[0], ...data[2]]
+            (data) => [data[1], ...data[4]]
         %}
 
 statement
@@ -64,7 +64,7 @@ function_call
 #    ...
 # ]
 function_definition
-    ->  %identifier  _ %lparen _ parameter_list _ %rparen _ %lbracket _  %nl statements %nl _ %rbracket
+    ->  %identifier _ %lparen _ parameter_list _ %rparen _ %lbracket _  %nl statements %nl _ %rbracket
     {%
         (data) => {
             return {

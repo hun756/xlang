@@ -42,6 +42,14 @@ function generate(node) {
         return String(node.value);
     }  else if (node.type === 'string'){
         return node.value;
+    } else if (node.type === 'function_definition'){
+        const funName = node.fun_name.value;
+        const params = node.parameters.map(generate).join(", ");
+
+        const body = node.body.map(generate).join(";\n") + ";\n";
+        const indentBody = body.split("\n").map(line => "\t" + line).join("\n");
+        
+        return `function ${funName} (${params}) {\n${indentBody}\n}`;
     } else {
         throw new Error(`Unknown node type: ${node.type}`);
     }
