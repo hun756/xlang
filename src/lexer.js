@@ -32,6 +32,8 @@ const lexer = moo.compile({
     string:         /"(?:\\["\\]|[^\n"\\])*"/,
     lparen:         '(',
     rparen:         ')',
+    lbracket:       '[',
+    rbracket:       ']',
     assignmentOp:   '=',
     identifier:     /[a-zA-Z_][a-zA-Z0-9_]*/,
     nl:             { match: /[\r\n]+/, lineBreaks: true }

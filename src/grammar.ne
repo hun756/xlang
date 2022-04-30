@@ -20,18 +20,19 @@ statements
         {%
             () => []
         %}
-    |   statement
+    |   _ statement _
         {%
             (data) => [data[0]]
         %}
-    |   statement %nl statements
+    |   _ statement _ %nl statements
         {%
             (data) => [data[0], ...data[2]]
         %}
 
 statement
-    ->  assignment  {% id %}
-    |   function_call   {% id %}
+    ->  assignment          {% id %}
+    |   function_call       {% id %}
+    |   function_definition {% id %}
 
 assignment
     -> %identifier _  %assignmentOp _ expression
@@ -45,6 +46,7 @@ assignment
         }
     %}
 
+# doIt(a b c)
 function_call
     ->  %identifier _ %lparen _ parameter_list _ %rparen
     {%
@@ -58,6 +60,21 @@ function_call
         }
     %}
 
+# doIt(a b c) [
+#    ...
+# ]
+function_definition
+    ->  %identifier  _ %lparen _ parameter_list _ %rparen _ %lbracket _  %nl statements %nl _ %rbracket
+    {%
+        (data) => {
+            return {
+                type: "function_definition",
+                fun_name: data[0],
+                parameters:data[4],
+                body: data[11]
+            }
+        }
+    %}
 
 parameter_list
     -> 
