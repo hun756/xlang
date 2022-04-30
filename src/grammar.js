@@ -8,6 +8,15 @@
     Lexer: myLexer,
     ParserRules: [
       {
+        "name": "program", "symbols": ["statements"], "postprocess":
+          (data) => {
+            return {
+              type: "program",
+              body: data[0]
+            }
+          }
+      },
+      {
         "name": "statements", "symbols": [], "postprocess":
           () => []
       },
@@ -22,7 +31,7 @@
       { "name": "statement", "symbols": ["assignment"], "postprocess": id },
       { "name": "statement", "symbols": ["function_call"], "postprocess": id },
       {
-        "name": "assignment", "symbols": [(myLexer.has("identifier") ? { type: "identifier" } : identifier), "_", (myLexer.has("assignmentOp") ? { type: "assignmentOp" } : assignmentOp), "_", "literal"], "postprocess":
+        "name": "assignment", "symbols": [(myLexer.has("identifier") ? { type: "identifier" } : identifier), "_", (myLexer.has("assignmentOp") ? { type: "assignmentOp" } : assignmentOp), "_", "expression"], "postprocess":
           (data) => {
             return {
               type: "assignment",
@@ -37,7 +46,7 @@
             return {
               type: "function_call",
               fun_name: data[0],
-              paramters: data[4],
+              parameters: data[4],
 
             }
           }
@@ -60,13 +69,14 @@
       },
       { "name": "expression", "symbols": [(myLexer.has("identifier") ? { type: "identifier" } : identifier)], "postprocess": id },
       { "name": "expression", "symbols": ["literal"], "postprocess": id },
+      { "name": "expression", "symbols": ["function_call"], "postprocess": id },
       { "name": "literal", "symbols": [(myLexer.has("number") ? { type: "number" } : number)], "postprocess": id },
       { "name": "literal", "symbols": [(myLexer.has("string") ? { type: "string" } : string)], "postprocess": id },
       { "name": "_", "symbols": [] },
       { "name": "_", "symbols": ["__"] },
       { "name": "__", "symbols": [(myLexer.has("ws") ? { type: "ws" } : ws)] }
     ]
-    , ParserStart: "statements"
+    , ParserStart: "program"
   }
   if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = grammar;
