@@ -4,6 +4,17 @@
 
 @lexer myLexer
 
+program
+    ->  statements
+        {%  
+            (data) => {
+                return {
+                    type: "program",
+                    body: data[0]
+                }
+            }
+        %}
+
 statements
     ->  null
         {%
@@ -23,7 +34,7 @@ statement
     |   function_call   {% id %}
 
 assignment
-    -> %identifier _  %assignmentOp _ literal
+    -> %identifier _  %assignmentOp _ expression
     {%
         (data) => {
             return {
@@ -41,7 +52,7 @@ function_call
             return {
                 type: "function_call",
                 fun_name: data[0],
-                paramters:data[4],
+                parameters:data[4],
 
             }
         }
@@ -69,7 +80,8 @@ parameter_list
 
 expression
     ->  %identifier         {% id %}
-    |   literal             {% id %}           
+    |   literal             {% id %}
+    |   function_call       {% id %}
 
 literal
     ->  %number     {% id %}
