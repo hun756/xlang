@@ -27,7 +27,7 @@ const moo = require('moo')
 */
 
 const lexer = moo.compile({
-    WS:             /[ \t]+/,
+    ws:             /[ \t]+/,
     number:         { match: /0|[1-9][0-9]*/, value: Number},
     string:         /"(?:\\["\\]|[^\n"\\])*"/,
     lparen:         '(',
