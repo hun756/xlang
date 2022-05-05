@@ -96,6 +96,24 @@ code_block
                 }
             }
         %}
+    |   %lbracket _ code_block_parameters _ %nl statements %nl _ %rbracket
+        {%
+            (data) => {
+                return {
+                    type: "code_block",
+                    parameters: data[2],
+                    statements: data[5],
+                }
+            }
+        %}
+
+code_block_parameters
+    ->  %bar _ expression_list _ %bar
+        {%
+            (data) => {
+                return data[2];
+            }
+        %}
 
 expression_list
     -> 

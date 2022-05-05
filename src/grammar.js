@@ -64,6 +64,20 @@ var grammar = {
             }
         }
                 },
+    {"name": "code_block", "symbols": [(myLexer.has("lbracket") ? {type: "lbracket"} : lbracket), "_", "code_block_parameters", "_", (myLexer.has("nl") ? {type: "nl"} : nl), "statements", (myLexer.has("nl") ? {type: "nl"} : nl), "_", (myLexer.has("rbracket") ? {type: "rbracket"} : rbracket)], "postprocess": 
+        (data) => {
+            return {
+                type: "code_block",
+                parameters: data[2],
+                statements: data[5],
+            }
+        }
+                },
+    {"name": "code_block_parameters", "symbols": [(myLexer.has("bar") ? {type: "bar"} : bar), "_", "expression_list", "_", (myLexer.has("bar") ? {type: "bar"} : bar)], "postprocess": 
+        (data) => {
+            return data[2];
+        }
+                },
     {"name": "expression_list", "symbols": ["expression"], "postprocess": 
         (data) => {
             return [data[0]];
