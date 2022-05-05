@@ -34,6 +34,8 @@ const lexer = moo.compile({
     rparen:         ')',
     lbracket:       '[',
     rbracket:       ']',
+    lbrace:        '{',
+    rbrace:        '}',
     // lte:            '<=',
     // lt:             '<',
     // gte:            '>=',

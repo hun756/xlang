@@ -36,7 +36,7 @@ var grammar = {
             }
         }
             },
-    {"name": "function_call", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", (myLexer.has("lparen") ? {type: "lparen"} : lparen), "_", "parameter_list", "_", (myLexer.has("rparen") ? {type: "rparen"} : rparen)], "postprocess": 
+    {"name": "function_call", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", (myLexer.has("lparen") ? {type: "lparen"} : lparen), "_", "expression_list", "_", (myLexer.has("rparen") ? {type: "rparen"} : rparen)], "postprocess": 
         (data) => {
             return {
                 type: "function_call",
@@ -46,7 +46,7 @@ var grammar = {
             }
         }
             },
-    {"name": "function_definition", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", (myLexer.has("lparen") ? {type: "lparen"} : lparen), "_", "parameter_list", "_", (myLexer.has("rparen") ? {type: "rparen"} : rparen), "_", "code_block"], "postprocess": 
+    {"name": "function_definition", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", (myLexer.has("lparen") ? {type: "lparen"} : lparen), "_", "expression_list", "_", (myLexer.has("rparen") ? {type: "rparen"} : rparen), "_", "code_block"], "postprocess": 
         (data) => {
             return {
                 type: "function_definition",
@@ -61,19 +61,15 @@ var grammar = {
             return {
                 type: "code_block",
                 statements: data[3],
-        
             }
         }
                 },
-    {"name": "parameter_list", "symbols": [], "postprocess": 
-        () => []
-                },
-    {"name": "parameter_list", "symbols": ["expression"], "postprocess": 
+    {"name": "expression_list", "symbols": ["expression"], "postprocess": 
         (data) => {
             return [data[0]];
         }
                 },
-    {"name": "parameter_list", "symbols": ["expression", "__", "parameter_list"], "postprocess": 
+    {"name": "expression_list", "symbols": ["expression", "__", "expression_list"], "postprocess": 
         (data) => {
             return [data[0], ...data[2]];
         }
@@ -82,8 +78,25 @@ var grammar = {
     {"name": "expression", "symbols": ["literal"], "postprocess": id},
     {"name": "expression", "symbols": ["function_call"], "postprocess": id},
     {"name": "expression", "symbols": ["code_block"], "postprocess": id},
+    {"name": "expression", "symbols": ["array_literal"], "postprocess": id},
     {"name": "literal", "symbols": [(myLexer.has("number") ? {type: "number"} : number)], "postprocess": id},
     {"name": "literal", "symbols": [(myLexer.has("string") ? {type: "string"} : string)], "postprocess": id},
+    {"name": "array_literal", "symbols": [(myLexer.has("lbrace") ? {type: "lbrace"} : lbrace), "_", "expression_list", "_", (myLexer.has("rbrace") ? {type: "rbrace"} : rbrace)], "postprocess": 
+        (data) => {
+            return {
+                type: "array_literal",
+                items: data[2]
+            }
+        }
+                },
+    {"name": "array_literal", "symbols": [(myLexer.has("lbrace") ? {type: "lbrace"} : lbrace), "_", (myLexer.has("rbrace") ? {type: "rbrace"} : rbrace)], "postprocess": 
+        () => {
+            return {
+                type: "array_literal",
+                items: []
+            }
+        }
+                },
     {"name": "_", "symbols": []},
     {"name": "_", "symbols": ["__"]},
     {"name": "__", "symbols": [(myLexer.has("ws") ? {type: "ws"} : ws)]}

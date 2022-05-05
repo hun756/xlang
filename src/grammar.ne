@@ -48,7 +48,7 @@ assignment
 
 # doIt(a b c)
 function_call
-    ->  %identifier _ %lparen _ parameter_list _ %rparen
+    ->  %identifier _ %lparen _ expression_list _ %rparen
     {%
         (data) => {
             return {
@@ -59,12 +59,22 @@ function_call
             }
         }
     %}
+    # |   %identifier _ %lparen _ %rparen
+    # {%
+    #     (data) => {
+    #        return {
+    #             type: "function_call",
+    #             fun_name: data[0],
+    #             parameters: [],
+    #        }
+    #     }
+    # %}
 
 # doIt(a b c) [
 #    ...
 # ]
 function_definition
-    ->  %identifier _ %lparen _ parameter_list _ %rparen _ code_block
+    ->  %identifier _ %lparen _ expression_list _ %rparen _ code_block
     {%
         (data) => {
             return {
@@ -83,24 +93,24 @@ code_block
                 return {
                     type: "code_block",
                     statements: data[3],
-
                 }
             }
         %}
 
-parameter_list
+expression_list
     -> 
-        null
-        {%
-            () => []
-        %}
-    |  expression
+        # null
+        # {%
+        #     () => []
+        # %}
+    # |  
+    expression
         {%
             (data) => {
                 return [data[0]];
             }
         %}
-    |   expression __ parameter_list
+    |   expression __ expression_list
         {%
             (data) => {
                 return [data[0], ...data[2]];
@@ -112,11 +122,34 @@ expression
     |   literal             {% id %}
     |   function_call       {% id %}
     |   code_block          {% id %}
+    |   array_literal       {% id %}
 
 literal
     ->  %number     {% id %}
     |   %string     {% id %}
 
+
+# Array Literal
+# Ex : arr = {1 2 3}
+array_literal
+    -> %lbrace _ expression_list _ %rbrace
+        {%
+            (data) => {
+                return {
+                    type: "array_literal",
+                    items: data[2]
+                }
+            }
+        %}
+    |   %lbrace _ %rbrace
+        {%
+            () => {
+                return {
+                    type: "array_literal",
+                    items: []
+                }
+            }
+        %}
 
 # Optional WhiteSpace
 _ 

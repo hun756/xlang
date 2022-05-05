@@ -35,29 +35,33 @@ function generate(node) {
     } else if (node.type === 'function_call') {
         const sourceFunName = node.fun_name.value;
         const funName = sourceFunName === "if" ? "$if" : sourceFunName;
-       
+
         const params = node.parameters.map(generate).join(", ");
         return `${funName}(${params})`;
     } else if (node.type === 'identifier') {
         return node.value;
-    }  else if (node.type === 'number'){
+    } else if (node.type === 'number') {
         return String(node.value);
-    }  else if (node.type === 'string'){
+    } else if (node.type === 'string') {
         return node.value;
-    } else if (node.type === 'function_definition'){
+    } else if (node.type === 'function_definition') {
         const funName = node.fun_name.value;
         const params = node.parameters.map(generate).join(", ");
 
         const body = node.body.statements.map(generate).join(";\n") + ";\n";
         const indentBody = body.split("\n").map(line => "\t" + line).join("\n");
-        
+
         return `function ${funName} (${params}) {\n${indentBody}\n}`;
-    } else if(node.type === "code_block") {
+    } else if (node.type === "code_block") {
         const body = node.statements.map(generate).join(";\n") + ";\n";
         const indentBody = body.split("\n").map(line => "\t" + line).join("\n");
-        
-        return `function () {\n${indentBody}\n}`; 
 
+        return `function () {\n${indentBody}\n}`;
+
+    } else if (node.type === "array_literal") {
+        const items = node.items.map(generate).join(", ");
+        // return `new Array(${items})`;
+        return `[${items}]`;
     } else {
         throw new Error(`Unknown node type: ${node.type}`);
     }
