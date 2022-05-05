@@ -1,0 +1,6 @@
+n = 10
+if (gt(n 7) [
+    print("Its too big..")
+] [
+    print("Its fine..")
+])

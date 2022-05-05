@@ -26,7 +26,7 @@ async function __exec(command, out = 0) {
         if (errLine.match(/ExperimentalWarning: The fs.promises API is experimental/)) {
             continue;
         }
-        process.stdout.write(errLine.underline.red);
+        process.stdout.write(errLine.underline.red + '\n');
     }
 }
 

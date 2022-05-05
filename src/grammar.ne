@@ -111,6 +111,7 @@ expression
     ->  %identifier         {% id %}
     |   literal             {% id %}
     |   function_call       {% id %}
+    |   code_block          {% id %}
 
 literal
     ->  %number     {% id %}

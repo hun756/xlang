@@ -34,7 +34,15 @@ const lexer = moo.compile({
     rparen:         ')',
     lbracket:       '[',
     rbracket:       ']',
+    // lte:            '<=',
+    // lt:             '<',
+    // gte:            '>=',
+    // gt:             '>',
     assignmentOp:   '=',
+    // opPlus:         '+',
+    // opMinus:        '-',
+    // opStar:         '*',
+    // opDiv:          '/',
     identifier:     /[a-zA-Z_][a-zA-Z0-9_]*/,
     nl:             { match: /[\r\n]+/, lineBreaks: true }
 });
