@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/hun756/xlang#readme",
   "dependencies": {
+    "babel-minify": "^0.5.1",
     "colors": "^1.4.0",
     "moo": "^0.5.1",
     "nearley": "^2.20.1"

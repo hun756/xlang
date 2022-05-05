@@ -1,10 +1,9 @@
 const fs = require('fs').promises;
 const path = require('path');
+const minify = require('babel-minify');
 
 
-const __runtime_fn = `
-"use strict";/*Compiled using nearley and moojs*/var _u=Math.imul,_b=Math.abs,_p=Math.pow,_s=Math.sqrt;function print(){var n;(n=console).log.apply(n,arguments)}function $if(n,r,t){(n?r:t)()}function gt(n,r){return r<n}var add=function(){for(var n=arguments.length,r=Array(n),t=0;t<n;t++)r[t]=arguments[t];return r.reduce(function(n,r){return n+r},0)},mul=function(){for(var n=arguments.length,r=Array(n),t=0;t<n;t++)r[t]=arguments[t];return r.reduce(function(n,r){return _u(n,r)},1)},sub=function(n,r){return n-r},div=function(n,r){return n/r},mod=function(n,r){return n%r},abs=function(n){return _b(n)},pow=function(r,t){return _p(n,m)},sqrt=function(n){return _s(n)};
-`
+const __runtime_fn = `"use strict";/*Compiled using nearley and moojs*/var _u=Math.imul,_b=Math.abs,_p=Math.pow,_s=Math.sqrt;function print(){var n;(n=console).log.apply(n,arguments)}function $if(n,r,t){(n?r:t)()}function gt(n,r){return r<n}function map(n,r){return n.map(r)}function filter(n,r){return n.filter(r)}function reduce(n,r,t){return n.reduce(r,t)}var add=function(){for(var n=arguments.length,r=Array(n),t=0;t<n;t++)r[t]=arguments[t];return r.reduce(function(n,r){return n+r},0)},mul=function(){for(var n=arguments.length,r=Array(n),t=0;t<n;t++)r[t]=arguments[t];return r.reduce(function(n,r){return _u(n,r)},1)},sub=function(n,r){return n-r},div=function(n,r){return n/r},mod=function(n,r){return n%r},abs=function(n){return _b(n)},pow=function(r,t){return _p(n,m)},sqrt=function(n){return _s(n)};`
 
 async function main() {
     const fileName = process.argv[2];
@@ -18,16 +17,24 @@ async function main() {
     // console.log(ast);
 
     const jsCode = generate(ast);
+
+    let { code, map } = minify(jsCode, {
+        mangle: {
+            keepClassName: true
+        }
+    });
+    
     const baseName = path.basename(fileName, ".xlang.ast");
     const jsFileName = `../output/${baseName}.js`;
-    await fs.writeFile(jsFileName, jsCode);
+    code = __runtime_fn + code;
+    await fs.writeFile(jsFileName, code);
 
     console.log(`Wrote : ${jsFileName}.`);
 }
 
 function generate(node) {
     if (node.type === 'program') {
-        return __runtime_fn + "\n" + node.body.map(generate).join(";\n") + ";";
+        return node.body.map(generate).join(";\n") + ";";
     } else if (node.type === 'assignment') {
         const varName = node.var_name.value;
         const value = generate(node.value);
