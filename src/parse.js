@@ -2,6 +2,8 @@ const nearley = require('nearley');
 const grammar = require('./grammar');
 const fs = require('fs').promises;
 const path = require('path');
+const { parse } = require('path');
+const colors = require('colors');
 
 
 async function main() {
@@ -20,6 +22,10 @@ async function main() {
     if (parser.results.length > 1) {
         console.warn("The parse tree generates multiple results..!");
         console.log(parser.results)
+    } else if (parser.results.length === 0) {
+        // for undefined output
+        console.error("Error: Unexpected end of file...!".underline.red);
+        process.exit(1);
     } else {
         const astFile = path.basename(filename) + ".ast";
         const aststr = parser.results[0];
