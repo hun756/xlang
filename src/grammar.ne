@@ -64,17 +64,29 @@ function_call
 #    ...
 # ]
 function_definition
-    ->  %identifier _ %lparen _ parameter_list _ %rparen _ %lbracket _  %nl statements %nl _ %rbracket
+    ->  %identifier _ %lparen _ parameter_list _ %rparen _ code_block
     {%
         (data) => {
             return {
                 type: "function_definition",
                 fun_name: data[0],
                 parameters:data[4],
-                body: data[11]
+                body: data[8]
             }
         }
     %}
+
+code_block
+    ->  %lbracket _ %nl statements %nl _ %rbracket
+        {%
+            (data) => {
+                return {
+                    type: "code_block",
+                    statements: data[3],
+
+                }
+            }
+        %}
 
 parameter_list
     -> 

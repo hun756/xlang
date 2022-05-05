@@ -46,7 +46,7 @@ function generate(node) {
         const funName = node.fun_name.value;
         const params = node.parameters.map(generate).join(", ");
 
-        const body = node.body.map(generate).join(";\n") + ";\n";
+        const body = node.body.statements.map(generate).join(";\n") + ";\n";
         const indentBody = body.split("\n").map(line => "\t" + line).join("\n");
         
         return `function ${funName} (${params}) {\n${indentBody}\n}`;
