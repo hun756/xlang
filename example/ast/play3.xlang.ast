@@ -1,0 +1,398 @@
+{
+ "type": "program",
+ "body": [
+  {
+   "type": "function_definition",
+   "fun_name": {
+    "type": "identifier",
+    "value": "main",
+    "text": "main",
+    "offset": 0,
+    "lineBreaks": 0,
+    "line": 1,
+    "col": 1
+   },
+   "parameters": [],
+   "body": {
+    "type": "code_block",
+    "statements": [
+     {
+      "type": "assignment",
+      "var_name": {
+       "type": "identifier",
+       "value": "x",
+       "text": "x",
+       "offset": 14,
+       "lineBreaks": 0,
+       "line": 2,
+       "col": 5
+      },
+      "value": {
+       "type": "function_call",
+       "fun_name": {
+        "type": "identifier",
+        "value": "add",
+        "text": "add",
+        "offset": 18,
+        "lineBreaks": 0,
+        "line": 2,
+        "col": 9
+       },
+       "parameters": [
+        {
+         "type": "number",
+         "value": 1,
+         "text": "1",
+         "offset": 22,
+         "lineBreaks": 0,
+         "line": 2,
+         "col": 13
+        },
+        {
+         "type": "number",
+         "value": 2,
+         "text": "2",
+         "offset": 24,
+         "lineBreaks": 0,
+         "line": 2,
+         "col": 15
+        },
+        {
+         "type": "number",
+         "value": 3,
+         "text": "3",
+         "offset": 26,
+         "lineBreaks": 0,
+         "line": 2,
+         "col": 17
+        },
+        {
+         "type": "number",
+         "value": 4,
+         "text": "4",
+         "offset": 28,
+         "lineBreaks": 0,
+         "line": 2,
+         "col": 19
+        },
+        {
+         "type": "number",
+         "value": 5,
+         "text": "5",
+         "offset": 30,
+         "lineBreaks": 0,
+         "line": 2,
+         "col": 21
+        },
+        {
+         "type": "number",
+         "value": 6,
+         "text": "6",
+         "offset": 32,
+         "lineBreaks": 0,
+         "line": 2,
+         "col": 23
+        },
+        {
+         "type": "number",
+         "value": 7,
+         "text": "7",
+         "offset": 34,
+         "lineBreaks": 0,
+         "line": 2,
+         "col": 25
+        },
+        {
+         "type": "number",
+         "value": 8,
+         "text": "8",
+         "offset": 36,
+         "lineBreaks": 0,
+         "line": 2,
+         "col": 27
+        }
+       ]
+      }
+     },
+     {
+      "type": "assignment",
+      "var_name": {
+       "type": "identifier",
+       "value": "y",
+       "text": "y",
+       "offset": 44,
+       "lineBreaks": 0,
+       "line": 3,
+       "col": 5
+      },
+      "value": {
+       "type": "function_call",
+       "fun_name": {
+        "type": "identifier",
+        "value": "mul",
+        "text": "mul",
+        "offset": 48,
+        "lineBreaks": 0,
+        "line": 3,
+        "col": 9
+       },
+       "parameters": [
+        {
+         "type": "number",
+         "value": 1,
+         "text": "1",
+         "offset": 52,
+         "lineBreaks": 0,
+         "line": 3,
+         "col": 13
+        },
+        {
+         "type": "number",
+         "value": 2,
+         "text": "2",
+         "offset": 54,
+         "lineBreaks": 0,
+         "line": 3,
+         "col": 15
+        },
+        {
+         "type": "number",
+         "value": 3,
+         "text": "3",
+         "offset": 56,
+         "lineBreaks": 0,
+         "line": 3,
+         "col": 17
+        },
+        {
+         "type": "number",
+         "value": 4,
+         "text": "4",
+         "offset": 58,
+         "lineBreaks": 0,
+         "line": 3,
+         "col": 19
+        },
+        {
+         "type": "number",
+         "value": 5,
+         "text": "5",
+         "offset": 60,
+         "lineBreaks": 0,
+         "line": 3,
+         "col": 21
+        },
+        {
+         "type": "number",
+         "value": 6,
+         "text": "6",
+         "offset": 62,
+         "lineBreaks": 0,
+         "line": 3,
+         "col": 23
+        },
+        {
+         "type": "number",
+         "value": 7,
+         "text": "7",
+         "offset": 64,
+         "lineBreaks": 0,
+         "line": 3,
+         "col": 25
+        },
+        {
+         "type": "number",
+         "value": 8,
+         "text": "8",
+         "offset": 66,
+         "lineBreaks": 0,
+         "line": 3,
+         "col": 27
+        }
+       ]
+      }
+     },
+     {
+      "type": "function_call",
+      "fun_name": {
+       "type": "identifier",
+       "value": "print",
+       "text": "print",
+       "offset": 76,
+       "lineBreaks": 0,
+       "line": 5,
+       "col": 5
+      },
+      "parameters": [
+       {
+        "type": "string",
+        "value": "\"sum is :\"",
+        "text": "\"sum is :\"",
+        "offset": 82,
+        "lineBreaks": 0,
+        "line": 5,
+        "col": 11
+       },
+       {
+        "type": "identifier",
+        "value": "x",
+        "text": "x",
+        "offset": 93,
+        "lineBreaks": 0,
+        "line": 5,
+        "col": 22
+       }
+      ]
+     },
+     {
+      "type": "function_call",
+      "fun_name": {
+       "type": "identifier",
+       "value": "print",
+       "text": "print",
+       "offset": 101,
+       "lineBreaks": 0,
+       "line": 6,
+       "col": 5
+      },
+      "parameters": [
+       {
+        "type": "string",
+        "value": "\"mul is :\"",
+        "text": "\"mul is :\"",
+        "offset": 107,
+        "lineBreaks": 0,
+        "line": 6,
+        "col": 11
+       },
+       {
+        "type": "identifier",
+        "value": "y",
+        "text": "y",
+        "offset": 118,
+        "lineBreaks": 0,
+        "line": 6,
+        "col": 22
+       }
+      ]
+     },
+     {
+      "type": "function_call",
+      "fun_name": {
+       "type": "identifier",
+       "value": "if",
+       "text": "if",
+       "offset": 128,
+       "lineBreaks": 0,
+       "line": 8,
+       "col": 5
+      },
+      "parameters": [
+       {
+        "type": "function_call",
+        "fun_name": {
+         "type": "identifier",
+         "value": "gt",
+         "text": "gt",
+         "offset": 131,
+         "lineBreaks": 0,
+         "line": 8,
+         "col": 8
+        },
+        "parameters": [
+         {
+          "type": "identifier",
+          "value": "x",
+          "text": "x",
+          "offset": 134,
+          "lineBreaks": 0,
+          "line": 8,
+          "col": 11
+         },
+         {
+          "type": "identifier",
+          "value": "y",
+          "text": "y",
+          "offset": 136,
+          "lineBreaks": 0,
+          "line": 8,
+          "col": 13
+         }
+        ]
+       },
+       {
+        "type": "code_block",
+        "statements": [
+         {
+          "type": "function_call",
+          "fun_name": {
+           "type": "identifier",
+           "value": "print",
+           "text": "print",
+           "offset": 148,
+           "lineBreaks": 0,
+           "line": 9,
+           "col": 7
+          },
+          "parameters": [
+           {
+            "type": "string",
+            "value": "\"sum is bigger than product..!\"",
+            "text": "\"sum is bigger than product..!\"",
+            "offset": 154,
+            "lineBreaks": 0,
+            "line": 9,
+            "col": 13
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "type": "code_block",
+        "statements": [
+         {
+          "type": "function_call",
+          "fun_name": {
+           "type": "identifier",
+           "value": "print",
+           "text": "print",
+           "offset": 205,
+           "lineBreaks": 0,
+           "line": 11,
+           "col": 7
+          },
+          "parameters": [
+           {
+            "type": "string",
+            "value": "\"sum is less than product..!\"",
+            "text": "\"sum is less than product..!\"",
+            "offset": 211,
+            "lineBreaks": 0,
+            "line": 11,
+            "col": 13
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "type": "function_call",
+   "fun_name": {
+    "type": "identifier",
+    "value": "main",
+    "text": "main",
+    "offset": 258,
+    "lineBreaks": 0,
+    "line": 15,
+    "col": 1
+   },
+   "parameters": []
+  }
+ ]
+}
