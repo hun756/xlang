@@ -1,0 +1,12 @@
+arr = { 1 2 3 4 5 6 }
+print(arr)
+squared = map(arr [|item|
+    a = mul(item item)
+    add(a 3)
+])
+print("squared" squared)
+
+filtered = filter(arr [|item|
+    eq(mod(item 2) 0)
+])
+print("filtered" filtered)

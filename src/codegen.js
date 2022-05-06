@@ -2,8 +2,6 @@ const fs = require('fs').promises;
 const path = require('path');
 const minify = require('babel-minify');
 
-
-// const __runtime_fn = `"use strict";/*Compiled using nearley and moojs*/var _u=Math.imul,_b=Math.abs,_p=Math.pow,_s=Math.sqrt;function print(){var n;(n=console).log.apply(n,arguments)}function $if(n,r,t){(n?r:t)()}function gt(n,r){return r<n}function map(n,r){return n.map(r)}function filter(n,r){return n.filter(r)}function reduce(n,r,t){return n.reduce(r,t)}var add=function(){for(var n=arguments.length,r=Array(n),t=0;t<n;t++)r[t]=arguments[t];return r.reduce(function(n,r){return n+r},0)},mul=function(){for(var n=arguments.length,r=Array(n),t=0;t<n;t++)r[t]=arguments[t];return r.reduce(function(n,r){return _u(n,r)},1)},sub=function(n,r){return n-r},div=function(n,r){return n/r},mod=function(n,r){return n%r},abs=function(n){return _b(n)},pow=function(r,t){return _p(n,m)},sqrt=function(n){return _s(n)};`
 const __runtime_fn = `
 "use strict";
 
@@ -20,9 +18,9 @@ function print() {
 
 function $if(cond, consequent, alternate) {
   if (cond) {
-    consequent();
+    return consequent();
   } else {
-    alternate();
+    return alternate();
   }
 }
 
@@ -44,6 +42,10 @@ function filter(arr, fun) {
 
 function reduce(arr, fun, initValue) {
   return arr.reduce(fun, initValue);
+}
+
+function eq(one, other) {
+    return one === other;
 }
 
 var add = function add() {
@@ -130,20 +132,9 @@ function generate(node) {
     } else if (node.type === 'string') {
         return node.value;
     } else if (node.type === 'function_definition') {
-        const funName = node.fun_name.value;
-        const params = node.parameters.map(generate).join(", ");
-
-        const body = node.body.statements.map(generate).join(";\n") + ";\n";
-        const indentBody = body.split("\n").map(line => "\t" + line).join("\n");
-
-        return `function ${funName} (${params}) {\n${indentBody}\n}`;
+        return generateFunction(node.body.statements, node.parameters);
     } else if (node.type === "code_block") {
-        const body = node.statements.map(generate).join(";\n") + ";\n";
-        const indentBody = body.split("\n").map(line => "\t" + line).join("\n");
-
-        const params = node.parameters.map(generate).join(", ");
-
-        return `function (${params}) {\n${indentBody}\n}`;
+        return generateFunction(node.statements, node.parameters);
     } else if (node.type === "array_literal") {
         const items = node.items.map(generate).join(", ");
         // return `new Array(${items})`;
@@ -151,6 +142,20 @@ function generate(node) {
     } else {
         throw new Error(`Unknown node type: ${node.type}`);
     }
+}
+
+function generateFunction(statements, parameters) {
+    const body = statements.map((statement, idx) => {
+        const js = generate(statement);
+        if (idx === statements.length - 1) {
+            return `return ${js}`;
+        } else {
+            return js;
+        }
+    }).join(";\n") + ";\n";
+    const indentBody = body.split("\n").map(line => "\t" + line).join("\n");
+    const params = parameters.map(generate).join(", ");
+    return `function (${params}) {\n${indentBody}\n}`;
 }
 
 main().catch(err => console.error(err.stack));

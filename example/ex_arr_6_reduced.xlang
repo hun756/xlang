@@ -1,0 +1,6 @@
+arr = { 1 2 3 4 5 6 }
+print(arr)
+reduced = reduce(arr [|product item|
+    mul(product item)
+] 1)
+print("reduced" reduced)

@@ -1,0 +1,7 @@
+arr = { 1 2 3 4 5 6 }
+print(arr)
+squared = map(arr [|item|
+    a = mul(item item)
+    add(a 3)
+])
+print("squared" squared)
